@@ -1,0 +1,113 @@
+version: "3.8"
+
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    environment:
+      - API_KEY=sk-1234567890abcdef1234567890abcdef1234567890abcdef
+      - DATABASE_URL=postgresql://admin:secretpass123@db:5432/myapp
+      - JWT_SECRET=super_secret_jwt_key_that_should_not_be_here
+      - REDIS_PASSWORD=redis_secret_password_123
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=myapp
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secretpass123
+      - POSTGRES_ROOT_PASSWORD=root_password_123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    command: redis-server --requirepass redis_secret_password_123
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgresql://admin:secretpass123@db:5432/myapp
+      - REDIS_URL=redis://:redis_secret_password_123@redis:6379
+      - JWT_SECRET=super_secret_jwt_key_that_should_not_be_here
+      - API_KEY=sk-1234567890abcdef1234567890abcdef1234567890abcdef
+      - AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+      - AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+      - STRIPE_SECRET_KEY=sk_test_1234567890abcdef1234567890abcdef1234567890abcdef
+      - SENDGRID_API_KEY=SG.1234567890abcdef1234567890abcdef1234567890abcdef.1234567890abcdef1234567890abcdef1234567890abcdef
+      - GITHUB_TOKEN=ghp_1234567890abcdef1234567890abcdef12345678
+      - SLACK_BOT_TOKEN=xoxb-1234567890-1234567890-1234567890abcdef1234567890
+      - DISCORD_BOT_TOKEN=MTIzNDU2Nzg5MDEyMzQ1Njc4OTA.G1234567890.1234567890abcdef1234567890abcdef1234567890
+      - TWILIO_ACCOUNT_SID=AC1234567890abcdef1234567890abcdef12
+      - TWILIO_AUTH_TOKEN=1234567890abcdef1234567890abcdef12
+      - MAILGUN_API_KEY=key-1234567890abcdef1234567890abcdef12345678
+      - FIREBASE_PRIVATE_KEY=-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC1234567890\n-----END PRIVATE KEY-----\n
+      - AZURE_STORAGE_KEY=1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef==
+      # Base64 encoded secret (should be detected by advanced scanning)
+      - ENCODED_SECRET=c2stMTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWYxMjM0NTY3ODkwYWJjZGVm
+      # Common false positives (should be filtered by LLM)
+      - EXAMPLE_KEY=your-api-key-here
+      - PLACEHOLDER_TOKEN=INSERT_YOUR_TOKEN_HERE
+      - TEST_PASSWORD=password
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  worker:
+    build: .
+    command: python worker.py
+    environment:
+      - DATABASE_URL=postgresql://admin:secretpass123@db:5432/myapp
+      - REDIS_URL=redis://:redis_secret_password_123@redis:6379
+      - CELERY_BROKER_URL=redis://:redis_secret_password_123@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:redis_secret_password_123@redis:6379/0
+      - API_KEY=sk-1234567890abcdef1234567890abcdef1234567890abcdef
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  monitoring:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    environment:
+      - PROMETHEUS_CONFIG_FILE=/etc/prometheus/prometheus.yml
+      # Monitoring service credentials
+      - GRAFANA_ADMIN_PASSWORD=grafana_admin_secret_123
+      - PROMETHEUS_PASSWORD=prometheus_secret_password
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+
+networks:
+  default:
+    driver: bridge
+# Secrets in comments (should be detected)
+# TODO: Replace these with proper secrets management
+# Database password: secretpass123
+# Redis password: redis_secret_password_123
+# JWT secret: super_secret_jwt_key_that_should_not_be_here
+# API key: sk-1234567890abcdef1234567890abcdef1234567890abcdef
