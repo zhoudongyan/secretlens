@@ -31,7 +31,7 @@ SecretLens solves these problems by adding **LLM semantic analysis** on top of G
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/secretlens.git
+git clone https://github.com/zhoudongyan/secretlens.git
 cd secretlens
 
 # Run the installation script
@@ -42,7 +42,7 @@ chmod +x install.sh && ./install.sh
 
 ```powershell
 # Clone the repository
-git clone https://github.com/yourusername/secretlens.git
+git clone https://github.com/zhoudongyan/secretlens.git
 cd secretlens
 
 # Run the installation script
@@ -87,7 +87,7 @@ winget install gitleaks
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/secretlens.git
+git clone https://github.com/zhoudongyan/secretlens.git
 cd secretlens
 
 # Install dependencies
@@ -277,7 +277,6 @@ jobs:
 
 ## 📚 Documentation
 
-- **[technical-guide.md](technical-guide.md)** - Complete technical documentation, advanced features, and configuration
 - **[examples/](examples/)** - Sample repositories and test cases
 
 ## 🤝 Contributing

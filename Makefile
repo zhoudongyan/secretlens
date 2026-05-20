@@ -88,8 +88,8 @@ run:
 	secretlens --help
 
 demo:
-	@echo "🎬 Running demo script..."
-	python demo.py
+	@echo "🎬 Running on test repository..."
+	secretlens enhance examples/test_repository --verbose
 
 # CI target for automated testing
 ci: clean lint test

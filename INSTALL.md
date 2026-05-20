@@ -130,10 +130,10 @@ After installation, verify that SecretLens is working:
 secretlens --help
 ```
 
-Or run the demo:
+Or run on the test repository:
 
 ```bash
-python demo.py
+secretlens enhance examples/test_repository --verbose
 ```
 
 ## Development Setup
@@ -222,7 +222,7 @@ pip install -e ".[dev,llm]"
 ### Getting Help
 
 - Check the [README.md](README.md) for usage examples
-- Check the [technical-guide.md](technical-guide.md) for technical details
+- Check the [examples/](examples/) for test cases
 - Open an issue on GitHub if you encounter problems
 
 ## Next Steps
@@ -230,7 +230,7 @@ pip install -e ".[dev,llm]"
 After installation:
 
 1. Read the [README.md](README.md) for usage examples
-2. Try the demo: `python demo.py`
+2. Try the demo: `secretlens enhance examples/test_repository --verbose`
 3. Check available commands: `secretlens --help`
 4. Configure your LLM settings (see Configuration section below)
 

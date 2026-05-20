@@ -15,12 +15,12 @@ version = "0.1.0"
 setup(
     name="secretlens",
     version=version,
-    author="SecretLens Team",
-    author_email="contact@secretlens.dev",
+    author="Dongyan Zhou",
+    author_email="meetzdy@gmail.com",
     description="LLM-Enhanced Secret Detection Tool",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/secretlens/secretlens",
+    url="https://github.com/zhoudongyan/secretlens",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -40,8 +40,6 @@ setup(
         "pydantic>=2.0.0",
         "rich>=13.0.0",
         "typing-extensions>=4.0.0",
-        "openai>=1.0.0",
-        "anthropic>=0.3.0",
         "regex>=2023.0.0",
         "GitPython>=3.1.0",
         "pathspec>=0.11.0",
@@ -51,12 +49,19 @@ setup(
         "python-dotenv>=1.0.0",
     ],
     extras_require={
+        "llm": [
+            "openai>=1.3.0",
+            "anthropic>=0.7.0",
+        ],
         "dev": [
             "pytest>=7.0.0",
             "pytest-asyncio>=0.21.0",
             "black>=23.0.0",
             "isort>=5.12.0",
             "mypy>=1.0.0",
+        ],
+        "all": [
+            "secretlens[llm,dev]",
         ],
     },
     entry_points={

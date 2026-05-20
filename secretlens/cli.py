@@ -73,7 +73,7 @@ def cli(ctx):
       # Generate report from previous scan
       secretlens report results.json
 
-    For more information, visit: https://github.com/your-org/secretlens
+    For more information, visit: https://github.com/zhoudongyan/secretlens
     """
     ctx.ensure_object(dict)
 

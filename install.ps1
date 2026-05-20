@@ -330,9 +330,9 @@ function Show-Completion {
     
     Write-Host ""
     Write-Info "Available commands:"
-    Write-Host "  secretlens scan <path>       - Scan for secrets"
     Write-Host "  secretlens enhance <path>    - Enhanced analysis with LLM"
-    Write-Host "  python demo.py               - Run demo script"
+    Write-Host "  secretlens report <file>     - Generate report from previous scan"
+    Write-Host "  secretlens --help            - Show all commands"
 }
 
 # Main installation function

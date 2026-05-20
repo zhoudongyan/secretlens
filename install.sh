@@ -289,9 +289,9 @@ show_completion() {
     
     echo ""
     print_info "Available commands:"
-    echo "  secretlens scan <path>       - Scan for secrets"
     echo "  secretlens enhance <path>    - Enhanced analysis with LLM"
-    echo "  python demo.py               - Run demo script"
+    echo "  secretlens report <file>     - Generate report from previous scan"
+    echo "  secretlens --help            - Show all commands"
     
     if command_exists make; then
         echo "  make help                    - Show development commands"

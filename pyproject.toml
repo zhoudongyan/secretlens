@@ -9,10 +9,10 @@ description = "LLM-Enhanced Secret Detection Tool"
 readme = "README.md"
 license = {file = "LICENSE"}
 authors = [
-    {name = "SecretLens Team", email = "contact@secretlens.dev"}
+    {name = "Dongyan Zhou", email = "meetzdy@gmail.com"}
 ]
 maintainers = [
-    {name = "SecretLens Team", email = "contact@secretlens.dev"}
+    {name = "Dongyan Zhou", email = "meetzdy@gmail.com"}
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -68,9 +68,9 @@ all = [
 secretlens = "secretlens.cli:cli"
 
 [project.urls]
-Homepage = "https://github.com/secretlens/secretlens"
-Repository = "https://github.com/secretlens/secretlens"
-Issues = "https://github.com/secretlens/secretlens/issues"
+Homepage = "https://github.com/zhoudongyan/secretlens"
+Repository = "https://github.com/zhoudongyan/secretlens"
+Issues = "https://github.com/zhoudongyan/secretlens/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]
